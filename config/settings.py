@@ -25,7 +25,13 @@ SECRET_KEY = "django-insecure-pd&w016(#3#_th*$r03ak@%e^o(6qhua=#-#b2oxvt_y1dg(em
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
+
+if DEBUG:
+    INTERNAL_IPS = [
+        "192.168.1.4",
+        "127.0.0.1",
+    ]
 
 
 # Application definition
@@ -41,7 +47,6 @@ INSTALLED_APPS = [
     "social_django",
     "mainapp",
     "authapp",
-    "crispy_forms",
 ]
 
 MIDDLEWARE = [
@@ -52,6 +57,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -154,8 +160,3 @@ STATICFILES_DIRS = [
 MEDIA_URL = "/media/"
 
 MEDIA_ROOT = BASE_DIR / "media"
-
-SOCIAL_AUTH_GITHUB_KEY = "685fbab91d867f7ab6ee"
-SOCIAL_AUTH_GITHUB_SECRET = "4677dbd6d8bea8b255ec30773706b55399f17379"
-
-CRISPY_TEMPLATE_PACK = "bootstrap4"
