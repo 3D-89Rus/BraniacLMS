@@ -25,7 +25,13 @@ SECRET_KEY = "django-insecure-pd&w016(#3#_th*$r03ak@%e^o(6qhua=#-#b2oxvt_y1dg(em
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
+
+if DEBUG:
+    INTERNAL_IPS = [
+        "192.168.1.4",
+        "127.0.0.1",
+    ]
 
 
 # Application definition
@@ -157,8 +163,8 @@ MEDIA_URL = "/media/"
 
 MEDIA_ROOT = BASE_DIR / "media"
 
-SOCIAL_AUTH_GITHUB_KEY = "685fbab91d867f7ab6ee"
-SOCIAL_AUTH_GITHUB_SECRET = "4677dbd6d8bea8b255ec30773706b55399f17379"
+SOCIAL_AUTH_GITHUB_KEY = "577037078c081320d574"
+SOCIAL_AUTH_GITHUB_SECRET = "ec7ef6f936bdc97944d9f10ee35c40411104abe2"
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
@@ -188,15 +194,6 @@ LOGGING = {
     },
 }
 
-ALLOWED_HOSTS = ["*"]
-
-if DEBUG:
-    INTERNAL_IPS = [
-        "192.168.1.4",
-        "127.0.0.1",
-    ]
-
-# In the end of file
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
@@ -206,3 +203,26 @@ CACHES = {
         },
     }
 }
+
+CELERY_BROKER_URL = "redis://localhost:6379"
+CELERY_RESULT_BACKEND = "redis://localhost:6379"
+
+
+# Read about sending email:
+#   https://docs.djangoproject.com/en/3.2/topics/email/
+
+# Full list of email settings:
+#   https://docs.djangoproject.com/en/3.2/ref/settings/#email
+# EMAIL_HOST = "localhost"
+# EMAIL_PORT = "25"
+
+# For debugging: python -m smtpd -n -c DebuggingServer localhost:25
+# EMAIL_HOST_USER = "django@geekshop.local"
+# EMAIL_HOST_PASSWORD = "geekshop"
+# EMAIL_USE_SSL = False
+# If server support TLS:
+# EMAIL_USE_TLS = True
+
+# Email as files for debug
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = "var/email-messages/"
